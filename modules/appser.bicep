@@ -1,23 +1,14 @@
-@description('App Service Plan name')
-param name string
-
-@description('App Service Plan location')
+param appName string
 param location string
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-  name: name
+resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
+  name: appName
   location: location
   sku: {
-    name: 'F1'
+    name: 'Y1'
+    tier: 'Dynamic'
   }
+  properties: {}
 }
 
-resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
-  name: name
-  location: location
-  properties: {
-    serverFarmId: appServicePlan.id
-  }
-}
-
-output planId string = appServicePlan.id
+output appName string = hostingPlan.name
