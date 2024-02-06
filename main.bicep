@@ -4,7 +4,7 @@ param appInsightsLocation string
 param functionWorkerRuntime string = 'dotnet'
 
 // storageAccount module
-module storageAccount 'storageAccount.bicep' = {
+module storageAccount 'modules/sa.bicep' = {
   name: 'storageAccount'
   params: {
     storageAccountName: '${uniqueString(resourceGroup().id)}azfunctions'
@@ -13,7 +13,7 @@ module storageAccount 'storageAccount.bicep' = {
   }
 }
 // app server module
-module hostingPlan 'hostingPlan.bicep' = {
+module hostingPlan 'modules/appser.bicep' = {
   name: 'hostingPlan'
   params: {
     appName: appName
@@ -21,7 +21,7 @@ module hostingPlan 'hostingPlan.bicep' = {
   }
 }
 // App insight module
-module applicationInsights 'applicationInsights.bicep' = {
+module applicationInsights 'modules/appin.bicep' = {
   name: 'applicationInsights'
   params: {
     appName: appName
@@ -30,7 +30,7 @@ module applicationInsights 'applicationInsights.bicep' = {
 }
 
 //  functionApp module
-module functionApp 'functionApp.bicep' = {
+module functionApp 'modules/funapp.bicep' = {
   name: 'functionApp'
   params: {
     functionAppName: appName
