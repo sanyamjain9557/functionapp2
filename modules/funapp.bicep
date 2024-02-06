@@ -2,7 +2,7 @@ param functionAppName string
 param location string
 param hostingPlanName string
 param storageAccountName string
-param appInsightsName string
+//param appInsightsName string
 param applicationInsights object
 param functionWorkerRuntime string
 
@@ -11,7 +11,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   location: location
   kind: 'functionapp'
   properties: {
-    serverFarmId: hostingPlan.id
+    serverFarmId: hostingPlanName.id
     siteConfig: {
       appSettings: [
         {
