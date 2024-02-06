@@ -1,6 +1,6 @@
 param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
 param location string = resourceGroup().location
-param appInsightsLocation string
+param appInsightsLocation string = location
 param functionWorkerRuntime string = 'dotnet'
 
 // storageAccount module
