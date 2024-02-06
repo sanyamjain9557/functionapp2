@@ -6,12 +6,13 @@ param resname string = 'viskomatsutest1'
 param storageAccountSku string = 'Standard_LRS'
 
 //----------- Application Insights Parameters ------------
-@description('Application Insights name')
-param applicationInsightsName string = resname
+// @description('Application Insights name')
+// param applicationInsightsName string = resname
 
 //----------- Function App Parameters ------------
 @description('Function App Plan name')
 param planName string = resname
+
 
 @description('Function App name')
 param functionAppName string = resname
@@ -36,13 +37,13 @@ module storageAccountModule 'modules/sa.bicep' = {
 }
 
 //----------- Application Insights Deployment ------------
-module applicationInsightsModule 'modules/appin.bicep' = {
-  name: 'appindeploy'
-  params: {
-    name: applicationInsightsName
-    location: location
-  }
-}
+// module applicationInsightsModule 'modules/appin.bicep' = {
+//   name: 'appindeploy'
+//   params: {
+//     name: applicationInsightsName
+//     location: location
+//   }
+// }
 
 //----------- App Service Plan Deployment ------------
 module appServicePlan 'modules/appser.bicep' = {
@@ -63,7 +64,7 @@ module functionAppModule 'modules/funapp.bicep' = {
   }
   dependsOn: [
     storageAccountModule
-    applicationInsightsModule
+    // applicationInsightsModule
     appServicePlan
   ]
 }
@@ -72,7 +73,7 @@ module functionAppModule 'modules/funapp.bicep' = {
 module functionAppSettingsModule 'modules/appsetting.bicep' = {
   name: 'siteconf'
   params: {
-    applicationInsightsKey: applicationInsightsModule.outputs.applicationInsightsKey
+    // applicationInsightsKey: applicationInsightsModule.outputs.applicationInsightsKey
     functionAppName: functionAppModule.outputs.functionAppName
     functionAppRuntime: functionAppRuntime
     storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
