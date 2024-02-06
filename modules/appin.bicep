@@ -1,20 +1,15 @@
-@description('Application Insights name')
-param name string
-
-@description('Application Insights location')
-param location string
-
-var kind = 'web'
+param appName string
+param appInsightsLocation string
 
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: name
-  location: location
-  kind: kind
+  name: appName
+  location: appInsightsLocation
+  kind: 'web'
   properties: {
-    Application_Type: kind
-    publicNetworkAccessForIngestion: 'Enabled'
-    publicNetworkAccessForQuery: 'Enabled'
+    Application_Type: 'web'
+    Request_Source: 'rest'
   }
 }
 
-output applicationInsightsKey string = applicationInsights.properties.InstrumentationKey
+output appName string = applicationInsights.name
+output applicationInsights object = applicationInsights.properties
