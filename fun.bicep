@@ -1,5 +1,5 @@
 param location string = 'East US'
-module Funapp 'modules/funapp.bicep' = {
+module Funapp 'modules/all.bicep' = {
   name: 'FunappModule'
   params: {
     appInsightsLocation: location
