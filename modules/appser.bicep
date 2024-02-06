@@ -7,7 +7,6 @@ param location string
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: name
   location: location
-  kind: 'functionapp'
   sku: {
     name: 'F1'
   }
