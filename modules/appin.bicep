@@ -17,4 +17,4 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-output applicationInsightsKey string = reference(applicationInsights.id, applicationInsights.apiVersion).InstrumentationKey
+output applicationInsightsKey string = applicationInsights.properties.InstrumentationKey
