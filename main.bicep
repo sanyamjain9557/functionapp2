@@ -35,9 +35,9 @@ module functionApp 'modules/funapp.bicep' = {
   params: {
     functionAppName: appName
     location: location
-    hostingPlanName: hostingPlan.outputs.appName
+    hostingPlanName: hostingPlan.outputs.appserName
     storageAccountName: storageAccount.outputs.storageAccountName
-    appInsightsName: applicationInsights.outputs.appName
+    appInsightsName: applicationInsights.outputs.appInName
     applicationInsights: applicationInsights.outputs.applicationInsights
     functionWorkerRuntime: functionWorkerRuntime
   }
