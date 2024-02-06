@@ -11,5 +11,5 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-output appName string = applicationInsights.name
-output applicationInsights object = applicationInsights.properties
+output appNameout string = applicationInsights.name
+output applicationInsightsout object = applicationInsights.properties
