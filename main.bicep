@@ -1,84 +1,44 @@
-@description('Resources location')
+param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
 param location string = resourceGroup().location
-param resname string = 'mlviskomatsutest1'
+param appInsightsLocation string
+param functionWorkerRuntime string = 'dotnet'
 
-//----------- Storage Account Parameters ------------
-param storageAccountSku string = 'Standard_LRS'
-
-//----------- Application Insights Parameters ------------
-// @description('Application Insights name')
-// param applicationInsightsName string = resname
-
-//----------- Function App Parameters ------------
-@description('Function App Plan name')
-param planName string = resname
-
-
-// @description('Function App name')
-// param functionAppName string = resname
-
-// @description('Function App runtime')
-// @allowed([
-//   'dotnet'
-//   'node'
-//   'python'
-//   'java'
-// ])
-//param functionAppRuntime string = 'dotnet'
-
-
-//----------- Storage Account Deployment ------------
-module storageAccountModule 'modules/sa.bicep' = {
-  name: 'sadeploy'
+// storageAccount module
+module storageAccount 'storageAccount.bicep' = {
+  name: 'storageAccount'
   params: {
-    sku: storageAccountSku
+    storageAccountName: '${uniqueString(resourceGroup().id)}azfunctions'
+    location: location
+    storageAccountType: 'Standard_LRS'
+  }
+}
+// app server module
+module hostingPlan 'hostingPlan.bicep' = {
+  name: 'hostingPlan'
+  params: {
+    appName: appName
     location: location
   }
 }
-
-//----------- Application Insights Deployment ------------
-// module applicationInsightsModule 'modules/appin.bicep' = {
-//   name: 'appindeploy'
-//   params: {
-//     name: applicationInsightsName
-//     location: location
-//   }
-// }
-
-//----------- App Service Plan Deployment ------------
-module appServicePlan 'modules/appser.bicep' = {
-  name: 'plandeploy'
+// App insight module
+module applicationInsights 'applicationInsights.bicep' = {
+  name: 'applicationInsights'
   params: {
-    name: planName
-    location: location
+    appName: appName
+    appInsightsLocation: appInsightsLocation
   }
 }
 
-// //----------- Function App Deployment ------------
-// module functionAppModule 'modules/funapp.bicep' = {
-//   name: 'funcdeploy'
-//   params: {
-//     name: functionAppName
-//     location: location
-//     planId: appServicePlan.outputs.planId
-//     //storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
-//     //functionAppRuntime: functionAppRuntime
-//   }
-//   dependsOn: [
-//     storageAccountModule
-//     // applicationInsightsModule
-//     appServicePlan
-//   ]
-// }
-
-//----------- Function App Settings Deployment ------------
-// module functionAppSettingsModule 'modules/appsetting.bicep' = {
-//   name: 'siteconf'
-//   params: {
-//     // applicationInsightsKey: applicationInsightsModule.outputs.applicationInsightsKey
-//     functionAppName: functionAppModule.outputs.functionAppName
-//     functionAppRuntime: functionAppRuntime
-//     storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
-//   }
-//   dependsOn: [ functionAppModule ]
-// }
+//  functionApp module
+module functionApp 'functionApp.bicep' = {
+  name: 'functionApp'
+  params: {
+    functionAppName: appName
+    location: location
+    hostingPlanName: hostingPlan.outputs.appName
+    storageAccountName: storageAccount.outputs.storageAccountName
+    appInsightsName: applicationInsights.outputs.appName
+    applicationInsights: applicationInsights.outputs.applicationInsights
+    functionWorkerRuntime: functionWorkerRuntime
+  }
+}
