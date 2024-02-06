@@ -14,8 +14,8 @@ param storageAccountSku string = 'Standard_LRS'
 param planName string = resname
 
 
-@description('Function App name')
-param functionAppName string = resname
+// @description('Function App name')
+// param functionAppName string = resname
 
 // @description('Function App runtime')
 // @allowed([
@@ -54,22 +54,22 @@ module appServicePlan 'modules/appser.bicep' = {
   }
 }
 
-//----------- Function App Deployment ------------
-module functionAppModule 'modules/funapp.bicep' = {
-  name: 'funcdeploy'
-  params: {
-    name: functionAppName
-    location: location
-    planId: appServicePlan.outputs.planId
-    //storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
-    //functionAppRuntime: functionAppRuntime
-  }
-  dependsOn: [
-    storageAccountModule
-    // applicationInsightsModule
-    appServicePlan
-  ]
-}
+// //----------- Function App Deployment ------------
+// module functionAppModule 'modules/funapp.bicep' = {
+//   name: 'funcdeploy'
+//   params: {
+//     name: functionAppName
+//     location: location
+//     planId: appServicePlan.outputs.planId
+//     //storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
+//     //functionAppRuntime: functionAppRuntime
+//   }
+//   dependsOn: [
+//     storageAccountModule
+//     // applicationInsightsModule
+//     appServicePlan
+//   ]
+// }
 
 //----------- Function App Settings Deployment ------------
 // module functionAppSettingsModule 'modules/appsetting.bicep' = {
