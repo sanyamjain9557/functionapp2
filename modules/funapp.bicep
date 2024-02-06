@@ -7,9 +7,9 @@ param location string
 @description('App Service Plan Id')
 param planId string
 
-@description('Storage Account connection string')
-@secure()
-param storageAccountConnectionString string
+// @description('Storage Account connection string')
+// @secure()
+// param storageAccountConnectionString string
 
 param functionAppRuntime string
 
@@ -30,8 +30,8 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
   parent: functionApp
   name: 'appsettings'
   properties: {
-    AzureWebJobsStorage: storageAccountConnectionString
-    WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccountConnectionString
+    //AzureWebJobsStorage: storageAccountConnectionString
+    //WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccountConnectionString
     //WEBSITE_CONTENTSHARE: toLower(name)
     FUNCTIONS_EXTENSION_VERSION: function_extension_version
     //APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsKey
