@@ -1,6 +1,6 @@
 @description('Resources location')
 param location string = resourceGroup().location
-param resname string = 'viskomatsutest1'
+param resname string = 'mlviskomatsutest1'
 
 //----------- Storage Account Parameters ------------
 param storageAccountSku string = 'Standard_LRS'
@@ -24,7 +24,7 @@ param functionAppName string = resname
 //   'python'
 //   'java'
 // ])
-param functionAppRuntime string = 'dotnet'
+//param functionAppRuntime string = 'dotnet'
 
 
 //----------- Storage Account Deployment ------------
@@ -62,7 +62,7 @@ module functionAppModule 'modules/funapp.bicep' = {
     location: location
     planId: appServicePlan.outputs.planId
     //storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
-    functionAppRuntime: functionAppRuntime
+    //functionAppRuntime: functionAppRuntime
   }
   dependsOn: [
     storageAccountModule
