@@ -4,24 +4,12 @@ param name string
 @description('App Service Plan location')
 param location string
 
-@description('App Service Plan operating system')
-@allowed([
-  'Windows'
-  'Linux'
-])
-param os string
-
-var reserved = os == 'Windows' ? true : false
-
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: name
   location: location
   kind: 'functionapp'
   sku: {
     name: 'F1'
-  }
-  properties: {
-    reserved: reserved
   }
 }
 
