@@ -13,13 +13,6 @@ param applicationInsightsName string = resname
 @description('Function App Plan name')
 param planName string = resname
 
-@description('Function App Plan operating system')
-@allowed([
-  'Windows'
-  'Linux'
-])
-param planOS string = 'Windows'
-
 @description('Function App name')
 param functionAppName string = resname
 
