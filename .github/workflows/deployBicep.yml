@@ -28,5 +28,5 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: fun-app
-        template: ./fun.bicep
+        template: ./main.bicep
         failOnStdErr: false
