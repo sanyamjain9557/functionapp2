@@ -1,47 +1,58 @@
-@description('Function App name')
-param name string
-
-@description('Function App location')
+param functionAppName string
 param location string
-
-@description('App Service Plan Id')
-param planId string
-
-// @description('Storage Account connection string')
-// @secure()
-// param storageAccountConnectionString string
-
-//param functionAppRuntime string
-
-var kind = 'functionapp'
-//var function_extension_version = '~4'
+param hostingPlanName string
+param storageAccountName string
+param appInsightsName string
+param applicationInsights object
+param functionWorkerRuntime string
 
 resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
-  name: name
+  name: functionAppName
   location: location
-  kind: kind
+  kind: 'functionapp'
   properties: {
-    serverFarmId: planId
+    serverFarmId: hostingPlan.id
+    siteConfig: {
+      appSettings: [
+        {
+          name: 'AzureWebJobsStorage'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        }
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+        }
+        {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: toLower(functionAppName)
+        }
+        {
+          name: 'FUNCTIONS_EXTENSION_VERSION'
+          value: '~4'
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: 'node'
+        }
+        {
+          name: 'WEBSITE_NODE_DEFAULT_VERSION'
+          value: 'v6.0'
+        }
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: applicationInsights.properties.InstrumentationKey
+        }
+        {
+          name: 'FUNCTIONS_WORKER_RUNTIME'
+          value: functionWorkerRuntime
+        }
+      ]
+      ftpsState: 'FtpsOnly'
+      netFrameworkVersion: 'v6.0'
+      minTlsVersion: '1.2'
+    }
+    httpsOnly: true
   }
 }
 
-
-// resource functionAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
-//   parent: functionApp
-//   name: 'appsettings'
-//   properties: {
-//     //AzureWebJobsStorage: storageAccountConnectionString
-//     //WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccountConnectionString
-//     //WEBSITE_CONTENTSHARE: toLower(name)
-//     FUNCTIONS_EXTENSION_VERSION: function_extension_version
-//     //APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsKey
-//     FUNCTIONS_WORKER_RUNTIME: functionAppRuntime
-//     //WEBSITE_TIME_ZONE only available on windows
-//     //WEBSITE_ADD_SITENAME_BINDINGS_IN_APPHOST_CONFIG: '1'
-//   }
-// }
-
-
-// output functionAppName string = functionApp.name
-// output principalId string = functionApp.identity.principalId
-// output tenantId string = functionApp.identity.tenantId
+output functionAppName string = functionApp.name
