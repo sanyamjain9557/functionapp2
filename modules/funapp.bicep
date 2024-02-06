@@ -40,7 +40,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: applicationInsights.properties.InstrumentationKey
+          value: applicationInsights
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
