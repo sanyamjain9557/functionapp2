@@ -11,7 +11,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   location: location
   kind: 'functionapp'
   properties: {
-    serverFarmId: hostingPlanName.id
+    serverFarmId: hostingPlanName
     siteConfig: {
       appSettings: [
         {
