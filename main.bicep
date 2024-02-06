@@ -57,7 +57,6 @@ module appServicePlan 'modules/appser.bicep' = {
   params: {
     name: planName
     location: location
-    os: planOS
   }
 }
 
