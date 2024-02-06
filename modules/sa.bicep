@@ -1,35 +1,18 @@
-param name string = 'vis${uniqueString(resourceGroup().id)}'
+param storageAccountName string
 param location string
-param sku string
+param storageAccountType string
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2021-08-01' = {
-  name: name
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+  name: storageAccountName
   location: location
-  kind: 'StorageV2'
   sku: {
-    name: sku
+    name: storageAccountType
   }
+  kind: 'Storage'
   properties: {
-   accessTier: 'Hot'
-   supportsHttpsTrafficOnly: true
-   encryption: {
-     keySource: 'Microsoft.Storage'
-     services: {
-       file: {
-         keyType: 'Account'
-         enabled: true
-       }
-       blob: {
-         keyType: 'Account'
-         enabled: true
-       }
-     }
-   }
+    supportsHttpsTrafficOnly: true
+    defaultToOAuthAuthentication: true
   }
 }
 
-var accountName = storageAccount.name
-var endpointSuffix = environment().suffixes.storage
-var key = storageAccount.listKeys().keys[0].value
-
-output storageAccountConnectionString string = 'DefaultEndpointsProtocol=https;AccountName=${accountName};EndpointSuffix=${endpointSuffix};AccountKey=${key}'
+output storageAccountName string = storageAccount.name
