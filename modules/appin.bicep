@@ -12,4 +12,4 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 output appInName string = applicationInsights.name
-output applicationInsights object = applicationInsights.properties
+output applicationInsights string = applicationInsights.properties.InstrumentationKey
