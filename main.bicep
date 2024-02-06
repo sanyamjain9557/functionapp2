@@ -61,7 +61,7 @@ module functionAppModule 'modules/funapp.bicep' = {
     name: functionAppName
     location: location
     planId: appServicePlan.outputs.planId
-    storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
+    //storageAccountConnectionString: storageAccountModule.outputs.storageAccountConnectionString
     functionAppRuntime: functionAppRuntime
   }
   dependsOn: [
