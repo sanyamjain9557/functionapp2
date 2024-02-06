@@ -10,9 +10,9 @@ param functionAppName string
 ])
 param functionAppRuntime string
 
-@description('Application Insights Instrumentation Key')
-@secure()
-param applicationInsightsKey string
+// @description('Application Insights Instrumentation Key')
+// @secure()
+// param applicationInsightsKey string
 
 @description('Storage Account connection string')
 @secure()
@@ -28,7 +28,7 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccountConnectionString
     WEBSITE_CONTENTSHARE: toLower(functionAppName)
     FUNCTIONS_EXTENSION_VERSION: function_extension_version
-    APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsKey
+    //APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsKey
     FUNCTIONS_WORKER_RUNTIME: functionAppRuntime
     //WEBSITE_TIME_ZONE only available on windows
     WEBSITE_ADD_SITENAME_BINDINGS_IN_APPHOST_CONFIG: 1
