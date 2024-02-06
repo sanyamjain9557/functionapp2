@@ -3,11 +3,13 @@ param location string = resourceGroup().location
 param appInsightsLocation string = location
 param functionWorkerRuntime string = 'dotnet'
 
+var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
+
 // storageAccount module
 module storageAccount 'modules/sa.bicep' = {
   name: 'storageAccount'
   params: {
-    storageAccountName: '${uniqueString(resourceGroup().id)}azfunctions'
+    storageAccountName: storageAccountName
     location: location
     storageAccountType: 'Standard_LRS'
   }
@@ -36,7 +38,8 @@ module functionApp 'modules/funapp.bicep' = {
     functionAppName: appName
     location: location
     hostingPlanName: hostingPlan.outputs.appserid
-    storageAccountName: storageAccount.outputs.storageAccountName
+    storageAccountName: storageAccountName
+    storageAccount: storageAccount
     //appInsightsName: applicationInsights.outputs.appInName
     applicationInsights: applicationInsights.outputs.applicationInsights
     functionWorkerRuntime: functionWorkerRuntime
