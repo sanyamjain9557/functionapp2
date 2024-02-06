@@ -8,11 +8,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   sku: {
     name: storageAccountType
   }
-  kind: 'Storage'
-  properties: {
-    supportsHttpsTrafficOnly: true
-    defaultToOAuthAuthentication: true
-  }
+  kind: 'StorageV2'
 }
 
 output storageAccountName string = storageAccount.name
