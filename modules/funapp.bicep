@@ -32,12 +32,12 @@ resource functionAppSettings 'Microsoft.Web/sites/config@2021-03-01' = {
   properties: {
     AzureWebJobsStorage: storageAccountConnectionString
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccountConnectionString
-    WEBSITE_CONTENTSHARE: toLower(name)
+    //WEBSITE_CONTENTSHARE: toLower(name)
     FUNCTIONS_EXTENSION_VERSION: function_extension_version
     //APPINSIGHTS_INSTRUMENTATIONKEY: applicationInsightsKey
     FUNCTIONS_WORKER_RUNTIME: functionAppRuntime
     //WEBSITE_TIME_ZONE only available on windows
-    WEBSITE_ADD_SITENAME_BINDINGS_IN_APPHOST_CONFIG: '1'
+    //WEBSITE_ADD_SITENAME_BINDINGS_IN_APPHOST_CONFIG: '1'
   }
 }
 
