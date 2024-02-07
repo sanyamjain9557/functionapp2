@@ -7,6 +7,7 @@ module Funapp 'modules/all.bicep' = {
   params: {
     appInsightsLocation: location
     funappName: appName
+    planId: appServicePlan.outputs.planId
   }
 }
 
