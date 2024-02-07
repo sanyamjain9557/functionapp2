@@ -9,12 +9,21 @@ module appServicePlan 'modules/allappser.bicep' = {
   }
 }
 
+module appinsightmodule 'modules/allappser.bicep' = {
+  name: 'Insightdeploy'
+  params: {
+    applicationInsightsName: appName
+    appInsightsLocation: location
+  }
+}
+
 module Funapp 'modules/all.bicep' = {
   name: 'FunappModule'
   params: {
     appInsightsLocation: location
     appName: appName
     planId: appServicePlan.outputs.planId
+    applicationInsightskey: appinsightmodule.outputs.applicationInsightskey
   }
 }
 
