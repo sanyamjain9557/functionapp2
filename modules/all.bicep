@@ -1,7 +1,7 @@
 param appName string = appName
 //@description('The name of the function app that you wish to create.')
 //param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
-
+param planId string = planId
 @description('Storage Account type')
 @allowed([
   'Standard_LRS'
@@ -58,7 +58,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   location: location
   kind: 'functionapp'
   properties: {
-    serverFarmId: hostingPlan.id
+    serverFarmId: planId
     siteConfig: {
       appSettings: [
         {
