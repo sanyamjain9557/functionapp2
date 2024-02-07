@@ -13,7 +13,7 @@ module Funapp 'modules/all.bicep' = {
 module appServicePlan 'modules/allappser.bicep' = {
   name: 'plandeploy'
   params: {
-    name: hostingPlanName
+    hostingPlanName: planName
     location: location
   }
 }
