@@ -1,4 +1,4 @@
-param funappName string = appName
+param appName string = appName
 //@description('The name of the function app that you wish to create.')
 //param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
 
@@ -25,7 +25,7 @@ param appInsightsLocation string
 param runtime string = 'dotnet'
 
 var functionAppName = appName
-var hostingPlanName = appName
+//var hostingPlanName = appName
 var applicationInsightsName = appName
 var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
 var functionWorkerRuntime = runtime
