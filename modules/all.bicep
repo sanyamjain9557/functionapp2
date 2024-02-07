@@ -42,15 +42,15 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   }
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-  name: hostingPlanName
-  location: location
-  sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
-  }
-  properties: {}
-}
+//resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
+//   name: hostingPlanName
+//   location: location
+//   sku: {
+//     name: 'Y1'
+//     tier: 'Dynamic'
+//   }
+//   properties: {}
+// }
 
 resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   name: functionAppName
@@ -90,6 +90,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         }
       ]
       ftpsState: 'FtpsOnly'
+      netFrameworkVersion: 'v6.0'
       minTlsVersion: '1.2'
     }
     httpsOnly: true
