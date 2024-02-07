@@ -1,10 +1,10 @@
 param appName string
-//param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
 param planId string
 param storageAccountType string = 'Standard_LRS'
 param location string = resourceGroup().location
 param appInsightsLocation string
 param runtime string = 'dotnet'
+param applicationInsightskey string
 
 var functionAppName = appName
 //var hostingPlanName = appName
@@ -65,7 +65,7 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: applicationInsights.properties.InstrumentationKey
+          value: applicationInsightskey
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
