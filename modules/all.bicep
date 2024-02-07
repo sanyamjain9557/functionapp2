@@ -2,13 +2,13 @@ param appName string
 param planId string
 param storageAccountType string = 'Standard_LRS'
 param location string = resourceGroup().location
-param appInsightsLocation string
+//param appInsightsLocation string
 param runtime string = 'dotnet'
 param applicationInsightskey string
 
 var functionAppName = appName
 //var hostingPlanName = appName
-var applicationInsightsName = appName
+//var applicationInsightsName = appName
 var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
 var functionWorkerRuntime = runtime
 
