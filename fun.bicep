@@ -20,7 +20,6 @@ module appinsightmodule 'modules/allappin.bicep' = {
 module Funapp 'modules/all.bicep' = {
   name: 'FunappModule'
   params: {
-    appInsightsLocation: location
     appName: appName
     planId: appServicePlan.outputs.planId
     applicationInsightskey: appinsightmodule.outputs.applicationInsightskey
