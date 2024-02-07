@@ -9,7 +9,7 @@ module appServicePlan 'modules/allappser.bicep' = {
   }
 }
 
-module appinsightmodule 'modules/allappser.bicep' = {
+module appinsightmodule 'modules/allappin.bicep' = {
   name: 'Insightdeploy'
   params: {
     applicationInsightsName: appName
