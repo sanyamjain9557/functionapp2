@@ -2,13 +2,10 @@ param appName string
 param planId string
 param storageAccountType string = 'Standard_LRS'
 param location string = resourceGroup().location
-//param appInsightsLocation string
 param runtime string = 'dotnet'
 param applicationInsightskey string
 
 var functionAppName = appName
-//var hostingPlanName = appName
-//var applicationInsightsName = appName
 var storageAccountName = '${uniqueString(resourceGroup().id)}azfunctions'
 var functionWorkerRuntime = runtime
 
@@ -24,16 +21,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
     defaultToOAuthAuthentication: true
   }
 }
-
-//resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
-//   name: hostingPlanName
-//   location: location
-//   sku: {
-//     name: 'Y1'
-//     tier: 'Dynamic'
-//   }
-//   properties: {}
-// }
 
 resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   name: functionAppName
@@ -80,12 +67,3 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
   }
 }
 
-//resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
-//  name: applicationInsightsName
-//  location: appInsightsLocation
-//  kind: 'web'
-//  properties: {
-//    Application_Type: 'web'
-//    Request_Source: 'rest'
-//  }
-//}
