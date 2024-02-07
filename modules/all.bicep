@@ -1,6 +1,6 @@
-param appName string = appName
+param appName string
 //param appName string = 'fnapp${uniqueString(resourceGroup().id)}'
-param planId string = planId
+param planId string
 param storageAccountType string = 'Standard_LRS'
 param location string = resourceGroup().location
 param appInsightsLocation string
