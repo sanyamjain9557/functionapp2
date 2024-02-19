@@ -20,7 +20,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Validate Bicep file
-      run: az deployment group validate --resource-group fun-app --template-file ./fun.bicep
+      run: az deployment group validate --resource-group fun-app2 --template-file ./fun.bicep
         
       # Deploy Bicep file
     - name: deployResource
